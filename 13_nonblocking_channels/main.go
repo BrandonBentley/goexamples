@@ -7,6 +7,10 @@ import (
 
 func main() {
 	channel := make(chan int, 5)
+	go func() {
+		time.Sleep(time.Millisecond * 100)
+		channel <- 1
+	}()
 	data, more, ok := TryRecieveWithTimeout(channel, time.Second)
 	if !ok {
 		fmt.Println("channel recieve timed out")
