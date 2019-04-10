@@ -19,11 +19,13 @@ func main() {
 	}
 }
 
+// adding the <- to the channel parameter works as
+// somewhat of a permissions modifier.
 func TryRecieveWithTimeout(c <-chan int, duration time.Duration) (data int, more, ok bool) {
 	select {
 	case data, more = <-c:
 		return data, more, true
-	case <-time.After(duration):
+	case <-time.After(duration): // time.After() returns a channel that is immediately blocking until after the given duration
 		return 0, true, false
 	}
 }

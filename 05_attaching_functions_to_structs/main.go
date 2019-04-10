@@ -27,6 +27,7 @@ func main() {
 	fmt.Println("attachToMe.Field1: ", attachToMe.Field1)
 	pointerToAttachToMe := &attachToMe
 	pointerToAttachToMe.UpdateField1(4)
+	pointerToAttachToMe.UpdateField1(4)
 	fmt.Println("attachToMe.Field1: ", pointerToAttachToMe.Field1)
 }
 

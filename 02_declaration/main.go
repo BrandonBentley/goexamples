@@ -24,7 +24,7 @@ func main() {
 
 	// Declaration with assignment within a function
 	localString2 := "localString"
-	localInt2 := 1
+	localInt2 := int32(1)
 	localChar2 := 'c'
 	localFloat2 := 3.14
 	values("Set", localString2, localInt2, localChar2, localFloat2)
