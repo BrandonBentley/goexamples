@@ -17,8 +17,4 @@ type Factory interface {
 	// before shutdown, cannot have data loss.
 	// Non-Blocking
 	Shutdown()
-
-	// this allows main to wait for execution to finish
-	// Blocking
-	Wait()
 }

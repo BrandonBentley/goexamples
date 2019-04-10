@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
+	"sync/atomic"
 	"time"
 )
 
+var value atomic.Value
+
 func main() {
+	value.Store(true)
 	producerA := make(chan int, 5)
 	producerB := make(chan int, 5)
 	consumerA := make(chan int)
@@ -17,6 +21,7 @@ func main() {
 	go Producer(producerB, 20)
 	go func() {
 		time.Sleep(time.Second * 2)
+		value.Store(false)
 		close(quit)
 	}()
 	Turnout(quit, producerA, producerB, consumerA, consumerB)
@@ -48,7 +53,7 @@ func Turnout(Quit <-chan int, InA, InB, OutA, OutB chan int) {
 
 func Producer(Out chan<- int, start int) {
 	i := start
-	for {
+	for value.Load().(bool) {
 		time.Sleep(time.Millisecond * 200)
 		Out <- i
 		i++
@@ -62,6 +67,8 @@ func Fanout(In <-chan int, OutA, OutB chan<- int) {
 		case OutB <- data:
 		}
 	}
+	close(OutA)
+	close(OutB)
 }
 
 func Output(In <-chan int, consumerName string) {

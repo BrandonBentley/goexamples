@@ -19,5 +19,4 @@ func main() {
 		time.Sleep(time.Millisecond * 100)
 	}
 	fact.Shutdown()
-	fact.Wait()
 }
